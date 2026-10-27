@@ -1,0 +1,684 @@
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Hachi+Maru+Pop&family=Inter:wght@400;700&display=swap");
+
+/* Light theme (default) */
+:root {
+  color-scheme: light;
+  --background: #faf6f1;
+  --surface: #ffffff;
+  --primary: #301934;
+  --on-primary: #ffffff;
+  --on-primary-soft: #f3dcdc;
+  --text: #2b2124;
+  --muted: #6f6064;
+  --pink: #f8e6e6;
+  --pink-text: #7b2d3e;
+  --divider: #efe6e1;
+  --gold: #f0c27b;
+  --input-bg: #ffffff;
+  --shadow: rgb(48 25 52 / 18%);
+  --overlay: rgb(48 25 52 / 45%);
+}
+
+/* Dark theme: switched on by the toggle button (data-theme="dark") */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #150d17;
+  --surface: #221626;
+  --primary: #5b2d66;
+  --on-primary: #ffffff;
+  --on-primary-soft: #e9cfe9;
+  --text: #f4ecf2;
+  --muted: #b3a2b0;
+  --pink: #3a2340;
+  --pink-text: #f2c4d0;
+  --divider: #34243a;
+  --gold: #f0c27b;
+  --input-bg: #2b1c30;
+  --shadow: rgb(0 0 0 / 50%);
+  --overlay: rgb(0 0 0 / 65%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Goldman", sans-serif;
+}
+
+button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.payments-page {
+  position: relative;
+  max-width: 1440px;
+  min-height: 940px;
+  margin-inline: auto;
+  padding: 26px 120px 143px;
+}
+
+/* Header */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.brand {
+  margin: 0;
+  font-family: "Hachi Maru Pop", cursive;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 58px;
+}
+
+.theme-toggle {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--pink);
+  color: var(--pink-text);
+}
+
+/* Main two-column layout */
+
+.payments-layout {
+  display: grid;
+  grid-template-columns: 497px minmax(0, 655px);
+  align-items: start;
+  gap: 48px;
+}
+
+/* Balance card */
+
+.balance-card {
+  min-height: 310px;
+  padding: 43px 32px 39px;
+  border-radius: 28px;
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.balance-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balance-card__label {
+  margin: 0;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.balance-card__edit {
+  padding: 0;
+  background: transparent;
+  color: var(--on-primary);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.balance-card__amount {
+  margin: 12px 0 10px;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 67px;
+}
+
+.balance-card__description {
+  margin: 0;
+  color: var(--on-primary-soft);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.balance-card__summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 31px;
+  padding-top: 19px;
+  border-top: 1px solid rgb(255 255 255 / 25%);
+}
+
+.balance-card__stat:last-child {
+  text-align: right;
+}
+
+.balance-card__stat-label {
+  margin: 0 0 7px;
+  color: var(--on-primary-soft);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.balance-card__stat-value {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.balance-card__stat-value--remaining {
+  color: var(--gold);
+}
+
+/* Planned payments */
+
+.planned-payments {
+  padding-top: 2px;
+}
+
+.planned-payments__title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 31px;
+}
+
+.planned-payments__subtitle {
+  margin: 9px 0 15px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+/* Filters */
+
+.payment-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.payment-filter {
+  display: inline-flex;
+  min-width: 72px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 16px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: var(--pink-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.payment-filter--active {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Payment list */
+
+.payment-list {
+  margin: 0;
+  padding: 0 28px;
+  list-style: none;
+  border-radius: 24px;
+  background: var(--surface);
+}
+
+.payment-item {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 16px;
+  min-height: 115px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.payment-item:first-child {
+  min-height: 118px;
+}
+
+.payment-item:last-child {
+  min-height: 120px;
+  border-bottom: 0;
+}
+
+.payment-item__icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--pink);
+  color: var(--pink-text);
+}
+
+.payment-item__icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.payment-item__name {
+  margin: 0 0 7px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.payment-item__date {
+  margin: 0;
+  color: var(--muted);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+/* Right side of each row: amount above the Pay button, dots beside the button */
+
+.payment-item__actions {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: end;
+  align-items: center;
+  gap: 10px 8px;
+}
+
+.payment-item__controls {
+  display: contents;
+}
+
+.payment-item__amount {
+  grid-row: 1;
+  grid-column: 1;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+}
+
+.payment-item__actions .payment-item__button {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.payment-item__actions .payment-item__menu {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.payment-item__button {
+  display: inline-flex;
+  min-width: 62px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 12px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: var(--pink-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.payment-item__button--paid {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Paid items look faded */
+
+.payment-item--paid .payment-item__name,
+.payment-item--paid .payment-item__amount {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* Empty list message */
+
+.payment-empty {
+  padding: 20px 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Three-dots menu */
+
+.payment-item__menu {
+  position: relative;
+}
+
+.menu-button {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: none;
+  color: var(--muted);
+}
+
+.menu-button:hover,
+.menu-button[aria-expanded="true"] {
+  background: var(--pink);
+  color: var(--pink-text);
+}
+
+.menu-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 10;
+  display: flex;
+  min-width: 140px;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.menu-item {
+  height: 44px;
+  padding-inline: 14px;
+  border-radius: 10px;
+  background: none;
+  color: var(--text);
+  font-size: 14px;
+  text-align: left;
+}
+
+.menu-item:hover {
+  background: var(--pink);
+}
+
+.menu-item--danger {
+  color: var(--pink-text);
+}
+
+/* Add payment */
+
+.add-payment {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  border-radius: 20px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Add payment form (inline) */
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--surface);
+  border-radius: 24px;
+}
+
+.form-input {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  background: var(--input-bg);
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.form-input::placeholder {
+  color: var(--muted);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.form-buttons .add-payment {
+  margin-top: 0;
+  flex: 1;
+}
+
+.cancel-button {
+  height: 56px;
+  padding: 0 24px;
+  border-radius: 20px;
+  background: var(--pink);
+  color: var(--pink-text);
+  font-weight: 700;
+}
+
+/* Pop-up (edit payment / edit current money) */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--overlay);
+}
+
+.modal {
+  display: flex;
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 32px);
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  overflow-y: auto;
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 24px 64px var(--shadow);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.modal .form-buttons {
+  margin-top: 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .modal-backdrop {
+    animation: modal-fade 0.15s ease-out;
+  }
+
+  .modal {
+    animation: modal-pop 0.18s ease-out;
+  }
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+/* Backup controls */
+
+.backup-actions {
+  position: absolute;
+  right: 18px;
+  bottom: 19px;
+  display: flex;
+  gap: 36px;
+}
+
+.backup-actions__button {
+  min-width: 204px;
+  height: 43px;
+  padding-inline: 26px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: var(--pink-text);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Illustration, bottom left under the balance card */
+
+/* Illustration, stays in the bottom left while scrolling */
+
+.page-art {
+  position: fixed;
+  left: max(0px, calc(50% - 720px));
+  bottom: 0;
+  z-index: 0;
+  width: clamp(240px, 28vw, 400px);
+  height: auto;
+  pointer-events: none;
+}
+
+/* Responsive adaptations */
+
+@media (max-width: 1250px) {
+  .payments-page {
+    padding-inline: 48px;
+  }
+
+  .payments-layout {
+    grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.15fr);
+    gap: 32px;
+  }
+
+  .balance-card__amount {
+    font-size: clamp(36px, 4.4vw, 56px);
+  }
+}
+
+@media (max-width: 800px) {
+  .payments-page {
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .page-header {
+    margin-bottom: 24px;
+  }
+
+  .brand {
+    font-size: 30px;
+    line-height: 1.5;
+  }
+
+  .payments-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .balance-card {
+    min-height: auto;
+    padding: 32px;
+  }
+
+  .balance-card__amount {
+    font-size: 48px;
+  }
+
+  .backup-actions {
+    position: static;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 48px;
+  }
+
+  .page-art {
+    position: static;
+    display: block;
+    width: 240px;
+    margin: 32px auto 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .payments-page {
+    padding: 20px 16px;
+  }
+
+  .balance-card {
+    padding: 28px 24px;
+  }
+
+  .balance-card__amount {
+    font-size: 40px;
+  }
+
+  .planned-payments__title {
+    font-size: 23px;
+  }
+
+  .payment-list {
+    padding-inline: 16px;
+  }
+
+  .payment-item {
+    column-gap: 12px;
+  }
+
+  .payment-item__name,
+  .payment-item__amount {
+    font-size: 14px;
+  }
+
+  .backup-actions__button {
+    width: 100%;
+  }
+
+  .modal {
+    padding: 24px 20px;
+  }
+}
