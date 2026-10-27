@@ -18,7 +18,7 @@ function App() {
   /* ---------- State (data that can change) ---------- */
   const [loaded, setLoaded] = useState(false) // true once saved data has been loaded
   const [theme, setTheme] = useState('light') // 'light' | 'dark'
-  const [budget, setBudget] = useState(12500)
+  const [budget, setBudget] = useState(0)
   const [payments, setPayments] = useState(startingPayments)
 
   const [filter, setFilter] = useState('all') // 'all' | 'unpaid' | 'paid'
@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     Promise.all([
       loadSaved('mp-theme', systemTheme()),
-      loadSaved('mp-budget', 12500),
+      loadSaved('mp-budget', 0),
       loadSaved('mp-payments', startingPayments),
     ]).then(([savedTheme, savedBudget, savedPayments]) => {
       setTheme(savedTheme)
